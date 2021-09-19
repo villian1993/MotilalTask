@@ -12,7 +12,7 @@ class DatabaseHelper {
     // Globally used ShareInstance in this Application
     static var shareInstance = DatabaseHelper()
     let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
-    // MARK:- save Task  Method
+    // save Task Method
     func saveToDoTask(object:[String:String]) {
         let toDoTask = NSEntityDescription.insertNewObject(forEntityName: "ToDoTask", into: context!) as? ToDoTask
         toDoTask?.tittle = object["tittle"]
@@ -23,19 +23,20 @@ class DatabaseHelper {
             debugPrint(error)
         }
     }
-    // MARK:- Fetch DetailsTask Method
+    // Fetch Details of Task Method
     func getToDoTaskData() -> [ToDoTask] {
         var toDoTask = [ToDoTask]()
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "ToDoTask")
+        let sort = NSSortDescriptor(key: "tittle", ascending: false)
+            fetchRequest.sortDescriptors = [sort]
         do {
             toDoTask = try context?.fetch(fetchRequest) as! [ToDoTask]
-            
         } catch  {
             debugPrint(error)
         }
         return toDoTask
     }
-    // MARK:- Delete DetailsTask Method
+    // Delete DetailsTask Method
     func deleteTask(index:Int) {
         var toDoTask = getToDoTaskData()
         context?.delete(toDoTask[index])
@@ -46,7 +47,7 @@ class DatabaseHelper {
             debugPrint(error)
         }
     }
-    // MARK:- Update DetailsTask Method
+    // Update DetailsTask Method
     func edittoDoTaskData(object:[String:String],i:Int) {
         let toDoTask = getToDoTaskData()
         toDoTask[i].tittle = object["tittle"]
