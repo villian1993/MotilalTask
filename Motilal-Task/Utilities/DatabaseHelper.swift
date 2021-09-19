@@ -27,7 +27,7 @@ class DatabaseHelper {
     func getToDoTaskData() -> [ToDoTask] {
         var toDoTask = [ToDoTask]()
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "ToDoTask")
-        let sort = NSSortDescriptor(key: "tittle", ascending: false)
+        let sort = NSSortDescriptor(key: "tittle", ascending: true)
             fetchRequest.sortDescriptors = [sort]
         do {
             toDoTask = try context?.fetch(fetchRequest) as! [ToDoTask]
