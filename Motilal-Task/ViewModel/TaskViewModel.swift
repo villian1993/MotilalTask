@@ -12,7 +12,7 @@ class TaskViewModel {
     var taskList = [TodoTaskModel]()
     weak var vc: ViewController?
     let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
-    // fetch tittle and description from PersistentContainer and append to the model class
+    // append to tittle and description the model class
     func getTaskData() {
         do {
             guard let result = try context?.fetch(ToDoTask.fetchRequest()) as? [ToDoTask] else {return}
